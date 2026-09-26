@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { ChevronLeft, ChevronRight, X } from 'lucide-react';
+import { ArrowUpRight, ChevronLeft, ChevronRight, X } from 'lucide-react';
 
 const frames = [
   {
@@ -69,6 +69,7 @@ const frames = [
 
 export function App() {
   const [selectedIndex, setSelectedIndex] = useState(null);
+  const [aboutOpen, setAboutOpen] = useState(false);
   const triggerRef = useRef(null);
   const closeButtonRef = useRef(null);
 
@@ -111,15 +112,41 @@ export function App() {
           <span className="wordmark-name">CHOIKANG</span>
         </a>
 
-        <div className="rail-middle">
-          <span className="rail-kicker">ANALOG PHOTOGRAPHY</span>
-          <a className="rail-link" href="#works">
-            <span className="rail-dot" />
-            WORKS
+        <nav className="rail-middle" aria-label="주요 메뉴">
+          <a className="rail-heading" href="#works">Works</a>
+          <a className="rail-project" href="#works">
+            <strong>Untitled</strong>
+            <span>Seoul, Korea</span>
+            <span>35mm Film</span>
           </a>
-        </div>
+          <div className="rail-secondary-links">
+            <button
+              className="rail-text-link"
+              type="button"
+              aria-expanded={aboutOpen}
+              aria-controls="about-details"
+              onClick={() => setAboutOpen((open) => !open)}
+            >
+              About
+            </button>
+            {aboutOpen && (
+              <div className="about-details" id="about-details">
+                <span>35MM FILM ARCHIVE</span>
+                <span>CHOIKANG · SEOUL</span>
+              </div>
+            )}
+            <a
+              className="rail-social"
+              href="https://www.instagram.com/trytastingfilm/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Instagram <ArrowUpRight aria-hidden="true" />
+            </a>
+          </div>
+        </nav>
 
-        <span className="rail-index">SEOUL · KOREA</span>
+        <span className="rail-index">© CHOIKANG</span>
       </aside>
 
       <main id="works" className="works-main">
