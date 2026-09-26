@@ -184,15 +184,6 @@ button:focus-visible, a:focus-visible { outline: 1px solid var(--accent); outlin
   line-height: 1.6;
 }
 
-.frame-note {
-  max-width: 185px;
-  margin: 25px 0 0;
-  color: #a2a198;
-  font-size: 11px;
-  line-height: 1.85;
-  word-break: keep-all;
-}
-
 .capture-details {
   display: grid;
   gap: 13px;
@@ -333,7 +324,6 @@ button:focus-visible, a:focus-visible { outline: 1px solid var(--accent); outlin
   .detail-copy { margin-top: 17px; }
   .detail-copy h2 { margin-bottom: 7px; font-size: 25px; }
   .detail-meta { margin-bottom: 4px; }
-  .frame-note { max-width: min(520px, calc(100% - 108px)); margin-top: 13px; font-size: 11px; }
   .capture-details { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 520px; gap: 18px; margin-top: 18px; }
   .capture-details dd { font-size: 11px; }
 
@@ -375,7 +365,6 @@ button:focus-visible, a:focus-visible { outline: 1px solid var(--accent); outlin
   .detail-copy { margin-top: 13px; }
   .detail-copy h2 { font-size: 23px; }
   .detail-meta { font-size: 8px; }
-  .frame-note { max-width: calc(100% - 100px); font-size: 10px; line-height: 1.65; }
   .capture-details { gap: 15px; margin-top: 16px; padding-top: 13px; }
   .capture-details dt { font-size: 7px; }
   .capture-details dd { font-size: 10px; }
