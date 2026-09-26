@@ -1,12 +1,11 @@
-import { useCallback, useEffect, useState } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 
 const frames = [
   {
     src: '/photos/urban-evening.jpg',
     alt: '해가 진 뒤 도시 도로를 오가는 자동차의 불빛',
     title: '도시의 속도',
-    roll: 'ARCHIVE SET / 01',
     camera: '미기록',
     film: '미기록',
   },
@@ -14,7 +13,6 @@ const frames = [
     src: '/photos/lamp-after-dusk.jpg',
     alt: '푸른 저녁 하늘 아래 켜진 가로등과 건물',
     title: '푸른 시간',
-    roll: 'ARCHIVE SET / 02',
     camera: '미기록',
     film: '미기록',
   },
@@ -22,7 +20,6 @@ const frames = [
     src: '/photos/bridge-at-blue-hour.jpg',
     alt: '다리 아래로 이어지는 길과 저녁의 풍경',
     title: '다리 아래',
-    roll: 'ARCHIVE SET / 03',
     camera: '미기록',
     film: '미기록',
   },
@@ -30,7 +27,6 @@ const frames = [
     src: '/photos/night-court.jpg',
     alt: '밤의 운동장과 멀리 보이는 불빛',
     title: '늦은 밤의 운동장',
-    roll: 'ARCHIVE SET / 04',
     camera: '미기록',
     film: '500T',
   },
@@ -38,7 +34,6 @@ const frames = [
     src: '/photos/station-window.jpg',
     alt: '밤에 바라본 역 주변의 창과 불빛',
     title: '창 너머의 밤',
-    roll: 'ARCHIVE SET / 05',
     camera: '미기록',
     film: '미기록',
   },
@@ -46,7 +41,6 @@ const frames = [
     src: '/photos/parking-light.jpg',
     alt: '밤 주차장에 남은 조명과 자동차',
     title: '남겨진 불빛',
-    roll: 'ARCHIVE SET / 06',
     camera: '미기록',
     film: '미기록',
   },
@@ -54,7 +48,6 @@ const frames = [
     src: '/photos/night-light.jpg',
     alt: '어둠 속에서 번지는 따뜻한 빛',
     title: '빛의 가장자리',
-    roll: 'ARCHIVE SET / 07',
     camera: '미기록',
     film: '미기록',
   },
@@ -62,7 +55,6 @@ const frames = [
     src: '/photos/shop-sign.jpg',
     alt: '저녁 거리의 가게 간판',
     title: '문 닫기 전',
-    roll: 'ARCHIVE SET / 08',
     camera: '미기록',
     film: '500T',
   },
@@ -70,120 +62,157 @@ const frames = [
     src: '/photos/frame-notes.jpg',
     alt: '필름 촬영에 관한 손글씨 메모',
     title: '필름의 메모',
-    roll: 'ARCHIVE SET / 09',
     camera: '미기록',
     film: '미기록',
   },
 ];
 
 export function App() {
-  const [active, setActive] = useState(0);
-  const current = frames[active];
+  const [selectedIndex, setSelectedIndex] = useState(null);
+  const triggerRef = useRef(null);
+  const closeButtonRef = useRef(null);
 
-  const move = useCallback((step) => {
-    setActive((index) => (index + step + frames.length) % frames.length);
-  }, []);
+  const closeViewer = () => {
+    setSelectedIndex(null);
+    window.requestAnimationFrame(() => triggerRef.current?.focus());
+  };
+
+  const moveFrame = (step) => {
+    setSelectedIndex((current) => (current + step + frames.length) % frames.length);
+  };
 
   useEffect(() => {
-    const onKeyDown = (event) => {
-      if (event.altKey || event.ctrlKey || event.metaKey) return;
-      if (event.key === 'ArrowLeft') move(-1);
-      if (event.key === 'ArrowRight') move(1);
+    if (selectedIndex === null) return undefined;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    closeButtonRef.current?.focus();
+
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') closeViewer();
+      if (event.key === 'ArrowLeft') moveFrame(-1);
+      if (event.key === 'ArrowRight') moveFrame(1);
     };
-    window.addEventListener('keydown', onKeyDown);
-    return () => window.removeEventListener('keydown', onKeyDown);
-  }, [move]);
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [selectedIndex]);
+
+  const selectedFrame = selectedIndex === null ? null : frames[selectedIndex];
 
   return (
-    <main className="portfolio-shell" id="top">
-      <header className="site-header">
-        <a className="wordmark" href="#top" aria-label="필름 아카이브 홈">
-          FILM <span>ARCHIVE</span>
+    <div className="portfolio-shell">
+      <aside className="side-rail" aria-label="사이트 메뉴">
+        <a className="wordmark" href="#works" aria-label="필름 아카이브 홈">
+          <span className="wordmark-mark">C</span>
+          <span className="wordmark-name">CHOIKANG</span>
         </a>
-        <p className="header-caption">ANALOG PHOTOGRAPHS <span>·</span> PERSONAL ARCHIVE</p>
-      </header>
 
-      <section className="works-section" id="works" aria-labelledby="works-title">
-        <h1 className="sr-only" id="works-title">빛이 머문 장면들</h1>
-        <div className="gallery-layout">
-          <div className="image-column">
-            <div className="photo-frame">
-              <img
-                key={current.src}
-                className="hero-photo"
-                src={current.src}
-                alt={current.alt}
-                fetchPriority="high"
-              />
-              <span className="photo-grain" aria-hidden="true" />
-              <span className="photo-corner photo-corner-top" aria-hidden="true">{current.roll}</span>
-              <span className="photo-corner photo-corner-bottom" aria-hidden="true">FRAME {String(active + 1).padStart(2, '0')}</span>
-            </div>
-          </div>
-
-          <aside className="frame-details" aria-live="polite" aria-atomic="true">
-            <div className="details-topline">
-              <span className="detail-current">{String(active + 1).padStart(2, '0')}</span>
-              <span className="details-rule" />
-              <span>{String(frames.length).padStart(2, '0')}</span>
-            </div>
-            <div className="detail-copy">
-              <h2>{current.title}</h2>
-              <p className="detail-meta">{current.roll}</p>
-              <dl className="capture-details">
-                <div>
-                  <dt>CAMERA</dt>
-                  <dd>{current.camera}</dd>
-                </div>
-                <div>
-                  <dt>FILM</dt>
-                  <dd>{current.film}</dd>
-                </div>
-              </dl>
-            </div>
-          </aside>
-
-          <div className="carousel-controls" aria-label="사진 이동">
-            <button type="button" className="arrow-button" onClick={() => move(-1)} aria-label="이전 사진">
-              <ChevronLeft aria-hidden="true" strokeWidth={1.35} />
-            </button>
-            <button type="button" className="arrow-button" onClick={() => move(1)} aria-label="다음 사진">
-              <ChevronRight aria-hidden="true" strokeWidth={1.35} />
-            </button>
-          </div>
+        <div className="rail-middle">
+          <span className="rail-kicker">ANALOG PHOTOGRAPHY</span>
+          <a className="rail-link" href="#works">
+            <span className="rail-dot" />
+            WORKS
+          </a>
         </div>
 
-        <div className="filmstrip-wrap">
-          <div className="filmstrip-label">
-            <span>THE CONTACT SHEET</span>
-            <span>01 — 09</span>
-          </div>
-          <div className="filmstrip" role="group" aria-label="사진 선택">
-            {frames.map((frame, index) => (
-              <button
-                key={frame.src}
-                type="button"
-                className={`film-thumb${index === active ? ' is-active' : ''}`}
-                onClick={() => setActive(index)}
-                aria-label={`${String(index + 1).padStart(2, '0')}번 사진: ${frame.title}`}
-                aria-pressed={index === active}
-              >
-                <span className="thumb-image-wrap">
-                  <img src={frame.src} alt="" loading="lazy" />
-                  <span className="thumb-number">{String(index + 1).padStart(2, '0')}</span>
-                </span>
-                <span className="thumb-name">{frame.title}</span>
-              </button>
-            ))}
-          </div>
-        </div>
-      </section>
+        <span className="rail-index">SEOUL · KOREA</span>
+      </aside>
 
-      <footer className="site-footer">
-        <span>FILM ARCHIVE</span>
-        <span>MADE OF LIGHT & TIME</span>
-        <a href="#top">BACK TO TOP ↑</a>
-      </footer>
-    </main>
+      <main id="works" className="works-main">
+        <header className="works-heading">
+          <div>
+            <p className="section-eyebrow">SELECTED FRAMES / 01</p>
+            <h1>Works</h1>
+          </div>
+          <span className="frame-count"><b>09</b> FRAMES</span>
+        </header>
+
+        <section className="photo-grid" aria-label="필름 사진 모음">
+          {frames.map((frame, index) => (
+            <button
+              className="photo-card"
+              key={frame.src}
+              type="button"
+              onClick={(event) => {
+                triggerRef.current = event.currentTarget;
+                setSelectedIndex(index);
+              }}
+              aria-label={`${frame.title} 사진 크게 보기`}
+            >
+              <span className="card-image-wrap">
+                <img src={frame.src} alt={frame.alt} loading={index < 6 ? 'eager' : 'lazy'} />
+                <span className="card-number">{String(index + 1).padStart(2, '0')}</span>
+                <span className="card-open" aria-hidden="true">↗</span>
+              </span>
+              <span className="card-caption">
+                <span className="card-title">{frame.title}</span>
+                <span className="card-index">{String(index + 1).padStart(2, '0')}</span>
+              </span>
+            </button>
+          ))}
+        </section>
+
+        <footer className="site-footer">
+          <span>35MM FILM ARCHIVE</span>
+          <span>© CHOIKANG</span>
+        </footer>
+      </main>
+
+      {selectedFrame && (
+        <div
+          className="viewer-backdrop"
+          role="presentation"
+          onMouseDown={(event) => {
+            if (event.target === event.currentTarget) closeViewer();
+          }}
+        >
+          <section className="photo-viewer" role="dialog" aria-modal="true" aria-label={selectedFrame.title}>
+            <button
+              className="viewer-close"
+              type="button"
+              onClick={closeViewer}
+              ref={closeButtonRef}
+              aria-label="사진 닫기"
+            >
+              <X aria-hidden="true" />
+            </button>
+
+            <button className="viewer-arrow viewer-previous" type="button" onClick={() => moveFrame(-1)} aria-label="이전 사진">
+              <ChevronLeft aria-hidden="true" />
+            </button>
+
+            <figure className="viewer-figure">
+              <img className="viewer-image" src={selectedFrame.src} alt={selectedFrame.alt} />
+              <figcaption className="viewer-caption">
+                <div className="viewer-title-row">
+                  <span className="viewer-number">{String(selectedIndex + 1).padStart(2, '0')} / 09</span>
+                  <h2>{selectedFrame.title}</h2>
+                </div>
+                <dl className="viewer-metadata">
+                  <div>
+                    <dt>CAMERA</dt>
+                    <dd>{selectedFrame.camera}</dd>
+                  </div>
+                  <div>
+                    <dt>FILM</dt>
+                    <dd>{selectedFrame.film}</dd>
+                  </div>
+                </dl>
+              </figcaption>
+            </figure>
+
+            <button className="viewer-arrow viewer-next" type="button" onClick={() => moveFrame(1)} aria-label="다음 사진">
+              <ChevronRight aria-hidden="true" />
+            </button>
+          </section>
+        </div>
+      )}
+    </div>
   );
 }
+
+export default App;
