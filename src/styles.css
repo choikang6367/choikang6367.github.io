@@ -39,9 +39,9 @@ button:focus-visible, a:focus-visible { outline: 1px solid var(--accent); outlin
 .portfolio-shell { width: 100%; min-height: 100vh; overflow: hidden; }
 
 .site-header {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  display: flex;
   align-items: center;
+  justify-content: space-between;
   width: min(100% - 128px, 1408px);
   min-height: 104px;
   margin: 0 auto;
@@ -57,27 +57,6 @@ button:focus-visible, a:focus-visible { outline: 1px solid var(--accent); outlin
 }
 
 .wordmark span { color: var(--muted); font-weight: 400; }
-.primary-nav { display: flex; justify-content: center; align-items: center; gap: 42px; }
-
-.nav-link {
-  position: relative;
-  padding: 8px 0;
-  color: var(--muted);
-  font-size: 13px;
-  transition: color 160ms ease;
-}
-
-.nav-link:hover, .nav-link.is-current { color: var(--text); }
-
-.nav-link.is-current::after {
-  position: absolute;
-  right: 0;
-  bottom: -9px;
-  left: 0;
-  height: 1px;
-  background: var(--accent);
-  content: '';
-}
 
 .header-caption {
   margin: 0;
@@ -214,6 +193,30 @@ button:focus-visible, a:focus-visible { outline: 1px solid var(--accent); outlin
   word-break: keep-all;
 }
 
+.capture-details {
+  display: grid;
+  gap: 13px;
+  margin: 28px 0 0;
+  padding-top: 15px;
+  border-top: 1px solid var(--line);
+}
+
+.capture-details dt {
+  margin-bottom: 5px;
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: .12em;
+}
+
+.capture-details dd {
+  margin: 0;
+  color: var(--text);
+  font-size: 10px;
+  line-height: 1.55;
+  word-break: keep-all;
+}
+
 .carousel-controls {
   position: absolute;
   top: 50%;
@@ -298,68 +301,13 @@ button:focus-visible, a:focus-visible { outline: 1px solid var(--accent); outlin
 
 .thumb-name { display: none; }
 
-.about-section {
-  display: grid;
-  grid-template-columns: minmax(180px, .72fr) 1.28fr;
-  gap: 9vw;
-  width: min(100% - 128px, 1408px);
-  margin: 150px auto 0;
-  padding: 37px 0 100px;
-  border-top: 1px solid var(--line);
-}
-
-.about-label { display: flex; flex-direction: column; justify-content: space-between; align-items: start; }
-
-.eyebrow, .about-mark, .site-footer {
-  font-family: var(--mono);
-  font-size: 9px;
-  font-weight: 400;
-  letter-spacing: .1em;
-}
-
-.eyebrow { margin: 0 0 12px; color: var(--muted); }
-.about-mark { color: var(--dim); font-size: 8px; }
-
-.about-copy { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
-
-.about-copy h2 {
-  margin: 0;
-  font-family: 'Apple SD Gothic Neo', 'Noto Serif KR', Georgia, serif;
-  font-size: clamp(27px, 3.3vw, 45px);
-  font-weight: 400;
-  letter-spacing: -.065em;
-  line-height: 1.42;
-}
-
-.about-description p {
-  max-width: 350px;
-  margin: 3px 0 28px;
-  color: #a2a198;
-  font-size: 12px;
-  line-height: 2;
-  word-break: keep-all;
-}
-
-.back-to-work {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding-bottom: 7px;
-  border-bottom: 1px solid #76766e;
-  color: var(--text);
-  font-size: 11px;
-  transition: border-color 160ms ease, color 160ms ease;
-}
-
-.back-to-work:hover { border-color: var(--accent); color: var(--accent); }
-
 .site-footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: min(100% - 128px, 1408px);
   min-height: 70px;
-  margin: 0 auto;
+  margin: 76px auto 0;
   border-top: 1px solid var(--line);
   color: var(--muted);
   font-size: 8px;
@@ -369,7 +317,7 @@ button:focus-visible, a:focus-visible { outline: 1px solid var(--accent); outlin
 .site-footer a:hover { color: var(--accent); }
 
 @media (max-width: 1020px) {
-  .site-header, .works-section, .about-section, .site-footer {
+  .site-header, .works-section, .site-footer {
     width: min(100% - 64px, 900px);
   }
 
@@ -386,6 +334,8 @@ button:focus-visible, a:focus-visible { outline: 1px solid var(--accent); outlin
   .detail-copy h2 { margin-bottom: 7px; font-size: 25px; }
   .detail-meta { margin-bottom: 4px; }
   .frame-note { max-width: min(520px, calc(100% - 108px)); margin-top: 13px; font-size: 11px; }
+  .capture-details { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 520px; gap: 18px; margin-top: 18px; }
+  .capture-details dd { font-size: 11px; }
 
   .carousel-controls {
     position: relative;
@@ -407,17 +357,12 @@ button:focus-visible, a:focus-visible { outline: 1px solid var(--accent); outlin
   .filmstrip-wrap { width: auto; overflow: hidden; margin: 23px 0 0; }
   .filmstrip { width: auto; margin-left: 0; grid-template-columns: repeat(9, minmax(98px, 1fr)); overflow-x: auto; gap: 11px; padding-bottom: 8px; scrollbar-width: thin; scrollbar-color: #4c4d46 transparent; }
   .thumb-name { display: block; overflow: hidden; margin-top: 8px; font-size: 9px; line-height: 1.4; text-overflow: ellipsis; white-space: nowrap; }
-  .about-section { grid-template-columns: 1fr; gap: 48px; margin-top: 108px; padding-bottom: 76px; }
-  .about-label { flex-direction: row; }
 }
 
 @media (max-width: 640px) {
-  .site-header, .works-section, .about-section, .site-footer { width: calc(100% - 40px); }
-  .site-header { min-height: 76px; grid-template-columns: 1fr auto; }
+  .site-header, .works-section, .site-footer { width: calc(100% - 40px); }
+  .site-header { min-height: 76px; }
   .wordmark { font-size: 12px; }
-  .primary-nav { grid-column: 2; grid-row: 1; gap: 21px; }
-  .nav-link { font-size: 12px; }
-  .nav-link.is-current::after { bottom: -6px; }
   .header-caption { display: none; }
   .works-section { padding-top: 16px; }
   .gallery-layout { gap: 16px; }
@@ -431,16 +376,14 @@ button:focus-visible, a:focus-visible { outline: 1px solid var(--accent); outlin
   .detail-copy h2 { font-size: 23px; }
   .detail-meta { font-size: 8px; }
   .frame-note { max-width: calc(100% - 100px); font-size: 10px; line-height: 1.65; }
+  .capture-details { gap: 15px; margin-top: 16px; padding-top: 13px; }
+  .capture-details dt { font-size: 7px; }
+  .capture-details dd { font-size: 10px; }
   .carousel-controls { height: 32px; margin-top: -58px; margin-bottom: 17px; }
   .arrow-button { width: 32px; height: 32px; }
   .filmstrip-wrap { margin-top: 16px; }
   .filmstrip { grid-template-columns: repeat(9, 110px); gap: 10px; margin-right: -20px; padding-right: 20px; }
-  .about-section { gap: 37px; margin-top: 82px; padding-top: 22px; padding-bottom: 62px; }
-  .about-label .eyebrow { max-width: 210px; font-size: 7px; }
-  .about-copy { grid-template-columns: 1fr; gap: 25px; }
-  .about-copy h2 { font-size: 32px; }
-  .about-description p { margin: 0 0 21px; font-size: 11px; }
-  .site-footer { min-height: 62px; gap: 12px; font-size: 7px; }
+  .site-footer { min-height: 62px; gap: 12px; margin-top: 46px; font-size: 7px; }
   .site-footer span:nth-child(2) { display: none; }
 }
 

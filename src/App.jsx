@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { ChevronLeft, ChevronRight, ArrowUpRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const frames = [
   {
@@ -8,6 +8,8 @@ const frames = [
     title: '도시의 속도',
     note: '저녁이 내려앉은 길 위, 잠깐 느려진 장면.',
     roll: 'ARCHIVE SET / 01',
+    camera: '미기록',
+    film: '미기록',
   },
   {
     src: '/photos/lamp-after-dusk.jpg',
@@ -15,6 +17,8 @@ const frames = [
     title: '푸른 시간',
     note: '낮과 밤 사이, 빛이 가장 오래 머무는 순간.',
     roll: 'ARCHIVE SET / 02',
+    camera: '미기록',
+    film: '미기록',
   },
   {
     src: '/photos/bridge-at-blue-hour.jpg',
@@ -22,6 +26,8 @@ const frames = [
     title: '다리 아래',
     note: '익숙한 길도 빛이 바뀌면 다른 장면이 된다.',
     roll: 'ARCHIVE SET / 03',
+    camera: '미기록',
+    film: '미기록',
   },
   {
     src: '/photos/night-court.jpg',
@@ -29,6 +35,8 @@ const frames = [
     title: '늦은 밤의 운동장',
     note: '하루가 끝난 뒤에도 불이 켜져 있던 곳.',
     roll: 'ARCHIVE SET / 04',
+    camera: '미기록',
+    film: '500T',
   },
   {
     src: '/photos/station-window.jpg',
@@ -36,6 +44,8 @@ const frames = [
     title: '창 너머의 밤',
     note: '지나가는 풍경을 창가에 잠시 붙잡아 둔다.',
     roll: 'ARCHIVE SET / 05',
+    camera: '미기록',
+    film: '미기록',
   },
   {
     src: '/photos/parking-light.jpg',
@@ -43,6 +53,8 @@ const frames = [
     title: '남겨진 불빛',
     note: '사람이 떠난 자리에서 더 선명해진 색.',
     roll: 'ARCHIVE SET / 06',
+    camera: '미기록',
+    film: '미기록',
   },
   {
     src: '/photos/night-light.jpg',
@@ -50,6 +62,8 @@ const frames = [
     title: '빛의 가장자리',
     note: '초점 밖으로 번져나간 작은 온기.',
     roll: 'ARCHIVE SET / 07',
+    camera: '미기록',
+    film: '미기록',
   },
   {
     src: '/photos/shop-sign.jpg',
@@ -57,6 +71,8 @@ const frames = [
     title: '문 닫기 전',
     note: '하루의 끝을 알리는 동네의 오래된 간판.',
     roll: 'ARCHIVE SET / 08',
+    camera: '미기록',
+    film: '500T',
   },
   {
     src: '/photos/frame-notes.jpg',
@@ -64,6 +80,8 @@ const frames = [
     title: '필름의 메모',
     note: '사진을 찍고 난 뒤 남겨둔 작은 기록.',
     roll: 'ARCHIVE SET / 09',
+    camera: '미기록',
+    film: '미기록',
   },
 ];
 
@@ -91,10 +109,6 @@ export function App() {
         <a className="wordmark" href="#top" aria-label="필름 아카이브 홈">
           FILM <span>ARCHIVE</span>
         </a>
-        <nav className="primary-nav" aria-label="주요 메뉴">
-          <a className="nav-link is-current" href="#works">작품</a>
-          <a className="nav-link" href="#about">소개</a>
-        </nav>
         <p className="header-caption">ANALOG PHOTOGRAPHS <span>·</span> PERSONAL ARCHIVE</p>
       </header>
 
@@ -126,6 +140,16 @@ export function App() {
               <h2>{current.title}</h2>
               <p className="detail-meta">{current.roll}</p>
               <p className="frame-note">{current.note}</p>
+              <dl className="capture-details">
+                <div>
+                  <dt>CAMERA</dt>
+                  <dd>{current.camera}</dd>
+                </div>
+                <div>
+                  <dt>FILM</dt>
+                  <dd>{current.film}</dd>
+                </div>
+              </dl>
             </div>
           </aside>
 
@@ -161,20 +185,6 @@ export function App() {
                 <span className="thumb-name">{frame.title}</span>
               </button>
             ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="about-section" id="about" aria-labelledby="about-title">
-        <div className="about-label">
-          <p className="eyebrow">A LITTLE ABOUT THIS ARCHIVE</p>
-          <span className="about-mark">01 / 02</span>
-        </div>
-        <div className="about-copy">
-          <h2 id="about-title">천천히 보고,<br />오래 기억하기.</h2>
-          <div className="about-description">
-            <p>필름으로 기록한 도시와 일상의 장면을 모읍니다. 지나가던 빛, 낯익은 골목, 그리고 우연히 마주친 순간을 한 프레임씩 담았습니다.</p>
-            <a href="#works" className="back-to-work">다시 작품 보기 <ArrowUpRight size={14} strokeWidth={1.5} aria-hidden="true" /></a>
           </div>
         </div>
       </section>
