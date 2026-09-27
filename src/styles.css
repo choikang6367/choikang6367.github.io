@@ -281,6 +281,204 @@ a:focus-visible {
   padding: var(--page-gap) var(--page-gap) 80px 0;
 }
 
+.works-editor {
+  margin: 0 0 clamp(32px, 5vw, 64px);
+  padding: clamp(16px, 2vw, 24px);
+  border: 1px solid #e8e7e3;
+  background: #fafaf8;
+}
+
+.works-editor-header,
+.works-editor-photos-header,
+.works-editor-photo-header,
+.works-editor-actions,
+.works-editor-collection {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.works-editor-header {
+  align-items: flex-start;
+  margin-bottom: 18px;
+}
+
+.works-editor-header h2,
+.works-editor-photos-header h3 {
+  margin: 0;
+  color: var(--foreground);
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.works-editor-header p,
+.works-editor-publish p,
+.works-editor-empty {
+  margin: 5px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.works-editor-collections {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-bottom: 18px;
+}
+
+.works-editor-collection {
+  gap: 3px;
+  padding: 3px;
+  border: 1px solid #e8e7e3;
+  background: #fff;
+}
+
+.works-editor-tab,
+.editor-move,
+.editor-action {
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--foreground);
+  cursor: pointer;
+}
+
+.works-editor-tab {
+  max-width: 210px;
+  overflow: hidden;
+  padding: 5px 8px;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.works-editor-tab.is-selected {
+  background: #f1f0ec;
+  font-weight: 700;
+}
+
+.editor-move {
+  min-width: 25px;
+  min-height: 25px;
+  padding: 2px 5px;
+  border-color: #e8e7e3;
+  background: #fff;
+  font-size: 12px;
+}
+
+.editor-action {
+  padding: 7px 10px;
+  border-color: var(--foreground);
+  background: var(--foreground);
+  color: #fff;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.editor-action-muted {
+  border-color: #d7d6d1;
+  background: #fff;
+  color: var(--foreground);
+}
+
+.editor-action:disabled,
+.editor-move:disabled {
+  cursor: not-allowed;
+  opacity: 0.35;
+}
+
+.works-editor-fields,
+.works-editor-photo-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.works-editor label {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 5px;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.works-editor input,
+.works-editor select,
+.works-editor textarea {
+  width: 100%;
+  min-width: 0;
+  padding: 8px 9px;
+  border: 1px solid #deddd8;
+  border-radius: 0;
+  background: #fff;
+  color: var(--foreground);
+  font: inherit;
+  font-size: 13px;
+}
+
+.works-editor textarea {
+  resize: vertical;
+}
+
+.works-editor-details,
+.works-editor-wide {
+  grid-column: 1 / -1;
+}
+
+.works-editor-photos-header {
+  margin: 24px 0 10px;
+}
+
+.works-editor-photos-header h3 {
+  font-size: 13px;
+}
+
+.works-editor-photos {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.works-editor-photo {
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid #e8e7e3;
+  background: #fff;
+}
+
+.works-editor-photo-header {
+  margin-bottom: 10px;
+}
+
+.works-editor-photo-header > strong {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.works-editor-publish {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid #e8e7e3;
+}
+
+.works-editor-publish a {
+  color: var(--foreground);
+  font-size: 11px;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.works-editor-publish p {
+  flex-basis: 100%;
+  margin: 0;
+  line-height: 1.5;
+}
+
 .project-header {
   display: flex;
   align-items: baseline;
@@ -599,6 +797,33 @@ a:focus-visible {
   .site-main {
     margin-left: 0;
     padding: 18px var(--page-gap) 60px;
+  }
+
+  .works-editor {
+    margin-bottom: 28px;
+    padding: 15px;
+  }
+
+  .works-editor-header {
+    flex-direction: column;
+  }
+
+  .works-editor-header h2 {
+    font-size: 15px;
+  }
+
+  .works-editor-photos {
+    grid-template-columns: 1fr;
+  }
+
+  .works-editor-fields,
+  .works-editor-photo-fields {
+    grid-template-columns: 1fr;
+  }
+
+  .works-editor-details,
+  .works-editor-wide {
+    grid-column: auto;
   }
 
   .project-header {

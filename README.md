@@ -17,7 +17,8 @@ npm run dev
 
 사이트 주소 뒤에 `?edit=1`을 붙여 열면 관리 링크가 나타납니다.
 
-- 사진 제목, 카메라, 필름, 모음 정보: `src/portfolio-data.json`에서 수정
+- Works 편집기에서 모음·사진 정보 수정, 추가, 삭제, 순서 변경
+- `변경 내용 복사`를 누른 뒤 GitHub의 `src/portfolio-data.json` 편집 화면에서 전체 내용을 붙여넣고 커밋
 - 새 사진: 관리 화면에서 이미지를 선택하면 WebP(품질 82%)로 변환됩니다. 변환 파일을 내려받아 GitHub에 올린 뒤 정보 파일에 `/photos/파일명.webp` 경로를 추가
 - GitHub에 커밋하면 Actions가 사이트를 다시 배포
 

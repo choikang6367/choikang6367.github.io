@@ -1,27 +1,31 @@
 import { useEffect, useRef, useState } from 'react';
 import portfolioData from './portfolio-data.json';
 import PhotoConverter from './PhotoConverter';
+import WorksEditor from './WorksEditor';
 
-const projects = portfolioData.projects;
+const defaultProjects = portfolioData.projects;
 const instagramUrl = portfolioData.instagramUrl;
 const editContentUrl =
   'https://github.com/choikang6367/choikang6367.github.io/edit/main/src/portfolio-data.json';
 const isEditMode = new URLSearchParams(window.location.search).get('edit') === '1';
 
-const routeFromHash = () => {
+const routeFromHash = (availableProjects) => {
   const hash = window.location.hash.slice(1);
-  if (hash === 'about') return { page: 'about', projectId: 'seoul' };
+  if (hash === 'about') return { page: 'about', projectId: availableProjects[0].id };
 
-  const requestedId = hash.startsWith('works/') ? hash.slice('works/'.length) : 'seoul';
-  const projectId = projects.some((project) => project.id === requestedId)
+  const requestedId = hash.startsWith('works/')
+    ? hash.slice('works/'.length)
+    : availableProjects[0].id;
+  const projectId = availableProjects.some((project) => project.id === requestedId)
     ? requestedId
-    : 'seoul';
+    : availableProjects[0].id;
 
   return { page: 'works', projectId };
 };
 
 export function App() {
-  const [route, setRoute] = useState(routeFromHash);
+  const [projects, setProjects] = useState(defaultProjects);
+  const [route, setRoute] = useState(() => routeFromHash(defaultProjects));
   const [menuOpen, setMenuOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(null);
   const triggerRef = useRef(null);
@@ -34,14 +38,14 @@ export function App() {
 
   useEffect(() => {
     const handleHashChange = () => {
-      setRoute(routeFromHash());
+      setRoute(routeFromHash(projects));
       setMenuOpen(false);
       setSelectedIndex(null);
     };
 
     window.addEventListener('hashchange', handleHashChange);
     return () => window.removeEventListener('hashchange', handleHashChange);
-  }, []);
+  }, [projects]);
 
   const closeViewer = () => {
     setSelectedIndex(null);
@@ -163,12 +167,11 @@ export function App() {
           {isEditMode && (
             <section className="editor-panel" aria-label="사이트 관리">
               <h2>관리 모드</h2>
-              <a href={editContentUrl} target="_blank" rel="noreferrer">
-                사진 정보 편집 <span aria-hidden="true">↗</span>
+              <a href="#works-editor-title">
+                Works 편집 <span aria-hidden="true">↓</span>
               </a>
               <p>
-                GitHub가 저장 권한을 확인해요. 변환한 사진을 올리고 정보 파일에
-                경로, 제목, 카메라와 필름을 적으면 자동 배포돼요.
+                모음과 사진 정보를 고친 뒤 GitHub에 저장할 수 있어요.
               </p>
               <PhotoConverter />
             </section>
@@ -177,6 +180,15 @@ export function App() {
       </header>
 
       <main className="site-main" id="main-content">
+        {route.page === 'works' && isEditMode && (
+          <WorksEditor
+            projects={projects}
+            onChange={setProjects}
+            instagramUrl={instagramUrl}
+            editContentUrl={editContentUrl}
+          />
+        )}
+
         {route.page === 'about' ? (
           <section className="about-inner" aria-labelledby="about-title">
             <h1 id="about-title">About</h1>
