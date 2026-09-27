@@ -1,154 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
+import portfolioData from './portfolio-data.json';
 
-const userFrames = [
-  {
-    src: '/photos/urban-evening.jpg',
-    alt: '해가 진 뒤 도시 도로를 오가는 자동차의 불빛',
-    title: '도시의 속도',
-    camera: '미기록',
-    film: '미기록',
-  },
-  {
-    src: '/photos/lamp-after-dusk.jpg',
-    alt: '푸른 저녁 하늘 아래 켜진 가로등과 건물',
-    title: '푸른 시간',
-    camera: '미기록',
-    film: '미기록',
-  },
-  {
-    src: '/photos/bridge-at-blue-hour.jpg',
-    alt: '다리 아래로 이어지는 길과 저녁의 풍경',
-    title: '다리 아래',
-    camera: '미기록',
-    film: '미기록',
-  },
-  {
-    src: '/photos/night-court.jpg',
-    alt: '밤의 운동장과 멀리 보이는 불빛',
-    title: '늦은 밤의 운동장',
-    camera: '미기록',
-    film: '500T',
-  },
-  {
-    src: '/photos/station-window.jpg',
-    alt: '밤에 바라본 역 주변의 창과 불빛',
-    title: '창 너머의 밤',
-    camera: '미기록',
-    film: '미기록',
-  },
-  {
-    src: '/photos/parking-light.jpg',
-    alt: '밤 주차장에 남은 조명과 자동차',
-    title: '남겨진 불빛',
-    camera: '미기록',
-    film: '미기록',
-  },
-  {
-    src: '/photos/night-light.jpg',
-    alt: '어둠 속에서 번지는 따뜻한 빛',
-    title: '빛의 가장자리',
-    camera: '미기록',
-    film: '미기록',
-  },
-  {
-    src: '/photos/shop-sign.jpg',
-    alt: '저녁 거리의 가게 간판',
-    title: '문 닫기 전',
-    camera: '미기록',
-    film: '500T',
-  },
-  {
-    src: '/photos/frame-notes.jpg',
-    alt: '필름 촬영에 관한 손글씨 메모',
-    title: '필름의 메모',
-    camera: '미기록',
-    film: '미기록',
-  },
-];
-
-const makeReferenceFrames = (collection, entries) =>
-  entries.map(([file, title]) => ({
-    src: '/reference/works/' + collection + '/' + file,
-    alt: title,
-    title,
-    camera: '미기록',
-    film: '미기록',
-  }));
-
-const referenceUntitledFrames = makeReferenceFrames('Untitled', [
-  ['012-daisy.jpeg', '012 daisy'],
-  ['011-cloud-and-tree.jpeg', '011 cloud and tree'],
-  ['010-dry.jpeg', '010 dry'],
-  ['009-foxtail.jpeg', '009 foxtail'],
-  ['008-gangneung.jpeg', '008 gangneung'],
-  ['007-goldfish.jpeg', '007 goldfish'],
-  ['006-Lahaina-Noon.jpeg', '006 Lahaina Noon'],
-  ['005-lotus.jpeg', '005 lotus'],
-  ['004-way-to-hangang.jpeg', '004 way to hangang'],
-  ['003-snack-bar.jpeg', '003 snack bar'],
-  ['002-watch.jpeg', '002 watch'],
-  ['001-on-a-date.jpeg', '001 on a date'],
-  ['000-collisionism.jpeg', '000 collisionism'],
-]);
-
-const bangkokFrames = makeReferenceFrames('Bangkok', [
-  ['005-Express.jpeg', '005 Express'],
-  ['004-Dawm-Arun.jpeg', '004 Dawm Arun'],
-  ['003-glasses.jpeg', '003 glasses'],
-  ['002-red-lantern.jpeg', '002 red lantern'],
-  ['001-sky.jpeg', '001 sky'],
-  ['000-Pride.jpeg', '000 Pride'],
-]);
-
-const panoramaFrames = makeReferenceFrames('Panorama', [
-  ['006-subway-in-bangkok.jpeg', '006 subway in bangkok'],
-  ['005-black-taxi.jpeg', '005 black taxi'],
-  ['004-tennis.jpeg', '004 tennis'],
-  ['003-painting.jpeg', '003 painting'],
-  ['002-drink.jpeg', '002 drink'],
-  ['001-yeouido.jpeg', '001 yeouido'],
-]);
-
-const projects = [
-  {
-    id: 'seoul',
-    title: 'Untitled',
-    navTitle: 'Untitled',
-    details: ['Seoul, Korea', '35mm Film'],
-    year: '2026',
-    layout: 'grid',
-    frames: userFrames,
-  },
-  {
-    id: 'untitled',
-    title: 'Untitled',
-    navTitle: 'Untitled · Archive',
-    details: [],
-    year: '2026',
-    layout: 'grid',
-    frames: referenceUntitledFrames,
-  },
-  {
-    id: 'bangkok',
-    title: 'Bangkok, Thailand',
-    navTitle: 'Bangkok, Thailand',
-    details: [],
-    year: '2026',
-    layout: 'grid',
-    frames: bangkokFrames,
-  },
-  {
-    id: 'panorama',
-    title: 'Panorama',
-    navTitle: 'Panorama',
-    details: [],
-    year: '',
-    layout: 'panorama',
-    frames: panoramaFrames,
-  },
-];
-
-const instagramUrl = 'https://www.instagram.com/trytastingfilm/';
+const projects = portfolioData.projects;
+const instagramUrl = portfolioData.instagramUrl;
+const editContentUrl =
+  'https://github.com/choikang6367/choikang6367.github.io/edit/main/src/portfolio-data.json';
+const uploadPhotosUrl =
+  'https://github.com/choikang6367/choikang6367.github.io/upload/main/public/photos';
+const isEditMode = new URLSearchParams(window.location.search).get('edit') === '1';
 
 const routeFromHash = () => {
   const hash = window.location.hash.slice(1);
@@ -301,6 +160,22 @@ export function App() {
           >
             Instagram <span aria-hidden="true">↗</span>
           </a>
+
+          {isEditMode && (
+            <section className="editor-panel" aria-label="사이트 관리">
+              <h2>관리 모드</h2>
+              <a href={editContentUrl} target="_blank" rel="noreferrer">
+                사진 정보 편집 <span aria-hidden="true">↗</span>
+              </a>
+              <a href={uploadPhotosUrl} target="_blank" rel="noreferrer">
+                사진 업로드 <span aria-hidden="true">↗</span>
+              </a>
+              <p>
+                GitHub가 저장 권한을 확인해요. 사진을 올린 뒤 정보 파일에 경로,
+                제목, 카메라와 필름을 적으면 자동 배포돼요.
+              </p>
+            </section>
+          )}
         </nav>
       </header>
 

@@ -1,0 +1,79 @@
+{
+  "instagramUrl": "https://www.instagram.com/trytastingfilm/",
+  "projects": [
+    {
+      "id": "seoul",
+      "title": "Untitled",
+      "navTitle": "Untitled",
+      "details": ["Seoul, Korea", "35mm Film"],
+      "year": "2026",
+      "layout": "grid",
+      "frames": [
+        { "src": "/photos/urban-evening.jpg", "alt": "해가 진 뒤 도시 도로를 오가는 자동차의 불빛", "title": "도시의 속도", "camera": "미기록", "film": "미기록" },
+        { "src": "/photos/lamp-after-dusk.jpg", "alt": "푸른 저녁 하늘 아래 켜진 가로등과 건물", "title": "푸른 시간", "camera": "미기록", "film": "미기록" },
+        { "src": "/photos/bridge-at-blue-hour.jpg", "alt": "다리 아래로 이어지는 길과 저녁의 풍경", "title": "다리 아래", "camera": "미기록", "film": "미기록" },
+        { "src": "/photos/night-court.jpg", "alt": "밤의 운동장과 멀리 보이는 불빛", "title": "늦은 밤의 운동장", "camera": "미기록", "film": "500T" },
+        { "src": "/photos/station-window.jpg", "alt": "밤에 바라본 역 주변의 창과 불빛", "title": "창 너머의 밤", "camera": "미기록", "film": "미기록" },
+        { "src": "/photos/parking-light.jpg", "alt": "밤 주차장에 남은 조명과 자동차", "title": "남겨진 불빛", "camera": "미기록", "film": "미기록" },
+        { "src": "/photos/night-light.jpg", "alt": "어둠 속에서 번지는 따뜻한 빛", "title": "빛의 가장자리", "camera": "미기록", "film": "미기록" },
+        { "src": "/photos/shop-sign.jpg", "alt": "저녁 거리의 가게 간판", "title": "문 닫기 전", "camera": "미기록", "film": "500T" },
+        { "src": "/photos/frame-notes.jpg", "alt": "필름 촬영에 관한 손글씨 메모", "title": "필름의 메모", "camera": "미기록", "film": "미기록" }
+      ]
+    },
+    {
+      "id": "untitled",
+      "title": "Untitled",
+      "navTitle": "Untitled · Archive",
+      "details": [],
+      "year": "2026",
+      "layout": "grid",
+      "frames": [
+        { "src": "/reference/works/Untitled/012-daisy.jpeg", "alt": "012 daisy", "title": "012 daisy", "camera": "미기록", "film": "미기록" },
+        { "src": "/reference/works/Untitled/011-cloud-and-tree.jpeg", "alt": "011 cloud and tree", "title": "011 cloud and tree", "camera": "미기록", "film": "미기록" },
+        { "src": "/reference/works/Untitled/010-dry.jpeg", "alt": "010 dry", "title": "010 dry", "camera": "미기록", "film": "미기록" },
+        { "src": "/reference/works/Untitled/009-foxtail.jpeg", "alt": "009 foxtail", "title": "009 foxtail", "camera": "미기록", "film": "미기록" },
+        { "src": "/reference/works/Untitled/008-gangneung.jpeg", "alt": "008 gangneung", "title": "008 gangneung", "camera": "미기록", "film": "미기록" },
+        { "src": "/reference/works/Untitled/007-goldfish.jpeg", "alt": "007 goldfish", "title": "007 goldfish", "camera": "미기록", "film": "미기록" },
+        { "src": "/reference/works/Untitled/006-Lahaina-Noon.jpeg", "alt": "006 Lahaina Noon", "title": "006 Lahaina Noon", "camera": "미기록", "film": "미기록" },
+        { "src": "/reference/works/Untitled/005-lotus.jpeg", "alt": "005 lotus", "title": "005 lotus", "camera": "미기록", "film": "미기록" },
+        { "src": "/reference/works/Untitled/004-way-to-hangang.jpeg", "alt": "004 way to hangang", "title": "004 way to hangang", "camera": "미기록", "film": "미기록" },
+        { "src": "/reference/works/Untitled/003-snack-bar.jpeg", "alt": "003 snack bar", "title": "003 snack bar", "camera": "미기록", "film": "미기록" },
+        { "src": "/reference/works/Untitled/002-watch.jpeg", "alt": "002 watch", "title": "002 watch", "camera": "미기록", "film": "미기록" },
+        { "src": "/reference/works/Untitled/001-on-a-date.jpeg", "alt": "001 on a date", "title": "001 on a date", "camera": "미기록", "film": "미기록" },
+        { "src": "/reference/works/Untitled/000-collisionism.jpeg", "alt": "000 collisionism", "title": "000 collisionism", "camera": "미기록", "film": "미기록" }
+      ]
+    },
+    {
+      "id": "bangkok",
+      "title": "Bangkok, Thailand",
+      "navTitle": "Bangkok, Thailand",
+      "details": [],
+      "year": "2026",
+      "layout": "grid",
+      "frames": [
+        { "src": "/reference/works/Bangkok/005-Express.jpeg", "alt": "005 Express", "title": "005 Express", "camera": "미기록", "film": "미기록" },
+        { "src": "/reference/works/Bangkok/004-Dawm-Arun.jpeg", "alt": "004 Dawm Arun", "title": "004 Dawm Arun", "camera": "미기록", "film": "미기록" },
+        { "src": "/reference/works/Bangkok/003-glasses.jpeg", "alt": "003 glasses", "title": "003 glasses", "camera": "미기록", "film": "미기록" },
+        { "src": "/reference/works/Bangkok/002-red-lantern.jpeg", "alt": "002 red lantern", "title": "002 red lantern", "camera": "미기록", "film": "미기록" },
+        { "src": "/reference/works/Bangkok/001-sky.jpeg", "alt": "001 sky", "title": "001 sky", "camera": "미기록", "film": "미기록" },
+        { "src": "/reference/works/Bangkok/000-Pride.jpeg", "alt": "000 Pride", "title": "000 Pride", "camera": "미기록", "film": "미기록" }
+      ]
+    },
+    {
+      "id": "panorama",
+      "title": "Panorama",
+      "navTitle": "Panorama",
+      "details": [],
+      "year": "",
+      "layout": "panorama",
+      "frames": [
+        { "src": "/reference/works/Panorama/006-subway-in-bangkok.jpeg", "alt": "006 subway in bangkok", "title": "006 subway in bangkok", "camera": "미기록", "film": "미기록" },
+        { "src": "/reference/works/Panorama/005-black-taxi.jpeg", "alt": "005 black taxi", "title": "005 black taxi", "camera": "미기록", "film": "미기록" },
+        { "src": "/reference/works/Panorama/004-tennis.jpeg", "alt": "004 tennis", "title": "004 tennis", "camera": "미기록", "film": "미기록" },
+        { "src": "/reference/works/Panorama/003-painting.jpeg", "alt": "003 painting", "title": "003 painting", "camera": "미기록", "film": "미기록" },
+        { "src": "/reference/works/Panorama/002-drink.jpeg", "alt": "002 drink", "title": "002 drink", "camera": "미기록", "film": "미기록" },
+        { "src": "/reference/works/Panorama/001-yeouido.jpeg", "alt": "001 yeouido", "title": "001 yeouido", "camera": "미기록", "film": "미기록" }
+      ]
+    }
+  ]
+}
