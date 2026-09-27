@@ -1,12 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import portfolioData from './portfolio-data.json';
+import PhotoConverter from './PhotoConverter';
 
 const projects = portfolioData.projects;
 const instagramUrl = portfolioData.instagramUrl;
 const editContentUrl =
   'https://github.com/choikang6367/choikang6367.github.io/edit/main/src/portfolio-data.json';
-const uploadPhotosUrl =
-  'https://github.com/choikang6367/choikang6367.github.io/upload/main/public/photos';
 const isEditMode = new URLSearchParams(window.location.search).get('edit') === '1';
 
 const routeFromHash = () => {
@@ -167,13 +166,11 @@ export function App() {
               <a href={editContentUrl} target="_blank" rel="noreferrer">
                 사진 정보 편집 <span aria-hidden="true">↗</span>
               </a>
-              <a href={uploadPhotosUrl} target="_blank" rel="noreferrer">
-                사진 업로드 <span aria-hidden="true">↗</span>
-              </a>
               <p>
-                GitHub가 저장 권한을 확인해요. 사진을 올린 뒤 정보 파일에 경로,
-                제목, 카메라와 필름을 적으면 자동 배포돼요.
+                GitHub가 저장 권한을 확인해요. 변환한 사진을 올리고 정보 파일에
+                경로, 제목, 카메라와 필름을 적으면 자동 배포돼요.
               </p>
+              <PhotoConverter />
             </section>
           )}
         </nav>
