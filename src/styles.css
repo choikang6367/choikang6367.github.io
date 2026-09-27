@@ -1,7 +1,15 @@
 :root {
-  --background: #ffffff;
-  --foreground: #11110f;
-  --muted: #76746d;
+  color-scheme: dark;
+  --background: #141413;
+  --foreground: #f2f0ea;
+  --muted: #a6a39a;
+  --surface: #1d1d1b;
+  --surface-raised: #242421;
+  --field-background: #181817;
+  --selected: #302f2a;
+  --border: #3a3934;
+  --border-subtle: #2e2d29;
+  --image-background: #24231f;
   --sidebar-width: 230px;
   --page-gap: clamp(24px, 3.5vw, 58px);
 }
@@ -151,7 +159,7 @@ a:focus-visible {
   gap: 8px;
   margin-top: 20px;
   padding-top: 12px;
-  border-top: 1px solid #e8e7e3;
+  border-top: 1px solid var(--border-subtle);
   color: var(--muted);
   font-size: 11px;
   line-height: 1.5;
@@ -185,7 +193,7 @@ a:focus-visible {
   align-items: flex-start;
   gap: 7px;
   padding-top: 10px;
-  border-top: 1px solid #e8e7e3;
+  border-top: 1px solid var(--border-subtle);
 }
 
 .webp-picker-label {
@@ -227,7 +235,7 @@ a:focus-visible {
   justify-content: space-between;
   gap: 6px;
   padding-top: 7px;
-  border-top: 1px solid #efeeeb;
+  border-top: 1px solid var(--border-subtle);
 }
 
 .webp-result-info {
@@ -258,7 +266,7 @@ a:focus-visible {
 .webp-download {
   flex: 0 0 auto;
   padding: 3px 5px;
-  border: 1px solid #deddd8;
+  border: 1px solid var(--border);
   background: transparent;
   font-size: 9px;
   cursor: pointer;
@@ -296,8 +304,8 @@ a:focus-visible {
 .works-editor {
   margin: 0 0 clamp(32px, 5vw, 64px);
   padding: clamp(16px, 2vw, 24px);
-  border: 1px solid #e8e7e3;
-  background: #fafaf8;
+  border: 1px solid var(--border);
+  background: var(--surface);
 }
 
 .works-editor-header,
@@ -342,8 +350,8 @@ a:focus-visible {
 .works-editor-collection {
   gap: 3px;
   padding: 3px;
-  border: 1px solid #e8e7e3;
-  background: #fff;
+  border: 1px solid var(--border-subtle);
+  background: var(--surface-raised);
 }
 
 .works-editor-tab,
@@ -365,7 +373,7 @@ a:focus-visible {
 }
 
 .works-editor-tab.is-selected {
-  background: #f1f0ec;
+  background: var(--selected);
   font-weight: 700;
 }
 
@@ -373,8 +381,8 @@ a:focus-visible {
   min-width: 25px;
   min-height: 25px;
   padding: 2px 5px;
-  border-color: #e8e7e3;
-  background: #fff;
+  border-color: var(--border);
+  background: var(--field-background);
   font-size: 12px;
 }
 
@@ -382,14 +390,14 @@ a:focus-visible {
   padding: 7px 10px;
   border-color: var(--foreground);
   background: var(--foreground);
-  color: #fff;
+  color: var(--background);
   font-size: 11px;
   white-space: nowrap;
 }
 
 .editor-action-muted {
-  border-color: #d7d6d1;
-  background: #fff;
+  border-color: var(--border);
+  background: var(--surface-raised);
   color: var(--foreground);
 }
 
@@ -421,9 +429,9 @@ a:focus-visible {
   width: 100%;
   min-width: 0;
   padding: 8px 9px;
-  border: 1px solid #deddd8;
+  border: 1px solid var(--border);
   border-radius: 0;
-  background: #fff;
+  background: var(--field-background);
   color: var(--foreground);
   font: inherit;
   font-size: 13px;
@@ -455,8 +463,8 @@ a:focus-visible {
 .works-editor-photo {
   min-width: 0;
   padding: 12px;
-  border: 1px solid #e8e7e3;
-  background: #fff;
+  border: 1px solid var(--border-subtle);
+  background: var(--surface-raised);
 }
 
 .works-editor-photo-header {
@@ -475,7 +483,7 @@ a:focus-visible {
   gap: 10px;
   margin-top: 18px;
   padding-top: 14px;
-  border-top: 1px solid #e8e7e3;
+  border-top: 1px solid var(--border-subtle);
 }
 
 .works-editor-publish a {
@@ -542,7 +550,7 @@ a:focus-visible {
   display: block;
   width: 100%;
   height: auto;
-  background: #e9e7e1;
+  background: var(--image-background);
   transition: opacity 220ms ease;
 }
 
@@ -712,7 +720,7 @@ a:focus-visible {
     align-items: center;
     justify-content: space-between;
     padding: 19px var(--page-gap);
-    background: rgba(246, 245, 241, 0.96);
+    background: rgba(20, 20, 19, 0.96);
     backdrop-filter: blur(8px);
   }
 
