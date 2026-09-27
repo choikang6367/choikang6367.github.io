@@ -264,6 +264,18 @@ a:focus-visible {
   cursor: pointer;
 }
 
+.webp-result-actions {
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.webp-download:disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+
 .webp-upload-link {
   color: var(--foreground);
   font-size: 10px;

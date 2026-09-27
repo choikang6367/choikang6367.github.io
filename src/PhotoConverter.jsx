@@ -61,7 +61,7 @@ const getSavingsText = (originalSize, convertedSize) => {
   return savings >= 0 ? `${savings}% 절감` : `${Math.abs(savings)}% 증가`;
 };
 
-export function PhotoConverter() {
+export function PhotoConverter({ onAddToWorks }) {
   const [items, setItems] = useState([]);
   const [isConverting, setIsConverting] = useState(false);
 
@@ -99,6 +99,20 @@ export function PhotoConverter() {
     setIsConverting(false);
   };
 
+  const addToWorks = (itemId) => {
+    const selected = items.find((item) => item.id === itemId);
+    if (!selected?.webpFile) return;
+
+    const wasAdded = onAddToWorks(selected.webpFile);
+    setItems((currentItems) =>
+      currentItems.map((item) =>
+        item.id === itemId
+          ? { ...item, addStatus: wasAdded ? 'added' : 'duplicate' }
+          : item,
+      ),
+    );
+  };
+
   return (
     <div className="webp-converter">
       <label className="webp-picker-label" htmlFor="photo-converter-input">
@@ -114,8 +128,8 @@ export function PhotoConverter() {
         onChange={handleSelection}
       />
       <p className="webp-help">
-        사진을 고르면 품질 82%로 자동 변환합니다. 결과 파일을 내려받아 GitHub에
-        업로드하세요.
+        사진을 고르면 품질 82%로 자동 변환합니다. WebP를 저장·업로드한 뒤 현재
+        Works 모음에 추가할 수 있어요.
       </p>
 
       {isConverting && <p className="webp-status" role="status">변환 중…</p>}
@@ -139,13 +153,27 @@ export function PhotoConverter() {
                 )}
               </div>
               {item.webpFile && (
-                <button
-                  className="webp-download"
-                  type="button"
-                  onClick={() => downloadFile(item.webpFile)}
-                >
-                  저장
-                </button>
+                <div className="webp-result-actions">
+                  <button
+                    className="webp-download"
+                    type="button"
+                    onClick={() => downloadFile(item.webpFile)}
+                  >
+                    저장
+                  </button>
+                  <button
+                    className="webp-download"
+                    type="button"
+                    disabled={Boolean(item.addStatus)}
+                    onClick={() => addToWorks(item.id)}
+                  >
+                    {item.addStatus === 'added'
+                      ? 'Works에 추가됨'
+                      : item.addStatus === 'duplicate'
+                        ? '이미 추가됨'
+                        : 'Works에 추가'}
+                  </button>
+                </div>
               )}
             </li>
           ))}

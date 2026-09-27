@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const newFrame = () => ({
   src: '/photos/파일명.webp',
@@ -21,14 +21,25 @@ const newProject = () => {
   };
 };
 
-export function WorksEditor({ projects, onChange, instagramUrl, editContentUrl }) {
-  const [activeProjectId, setActiveProjectId] = useState(projects[0]?.id ?? '');
+export function WorksEditor({
+  projects,
+  onChange,
+  currentProjectId,
+  onSelectProject,
+  instagramUrl,
+  editContentUrl,
+}) {
   const [copyStatus, setCopyStatus] = useState('');
-  const activeProject = projects.find((project) => project.id === activeProjectId) ?? projects[0];
+  const activeProject = projects.find((project) => project.id === currentProjectId) ?? projects[0];
+
+  useEffect(() => {
+    setCopyStatus('');
+  }, [projects]);
 
   if (!activeProject) return null;
 
   const updateProject = (changes) => {
+    setCopyStatus('');
     onChange(
       projects.map((project) =>
         project.id === activeProject.id ? { ...project, ...changes } : project,
@@ -56,7 +67,7 @@ export function WorksEditor({ projects, onChange, instagramUrl, editContentUrl }
   const addProject = () => {
     const project = newProject();
     onChange([...projects, project]);
-    setActiveProjectId(project.id);
+    onSelectProject(project.id);
     setCopyStatus('');
   };
 
@@ -64,7 +75,7 @@ export function WorksEditor({ projects, onChange, instagramUrl, editContentUrl }
     if (projects.length <= 1) return;
     const remaining = projects.filter((project) => project.id !== activeProject.id);
     onChange(remaining);
-    setActiveProjectId(remaining[0].id);
+    onSelectProject(remaining[0].id);
     setCopyStatus('');
   };
 
@@ -96,7 +107,7 @@ export function WorksEditor({ projects, onChange, instagramUrl, editContentUrl }
       <header className="works-editor-header">
         <div>
           <h2 id="works-editor-title">Works 편집</h2>
-          <p>모음과 사진 정보를 바꾸면 오른쪽 작품 화면에 바로 반영됩니다.</p>
+          <p>모음과 사진 정보를 바꾸면 아래 갤러리 미리보기에 바로 반영됩니다.</p>
         </div>
         <button className="editor-action" type="button" onClick={addProject}>
           모음 추가
@@ -113,7 +124,7 @@ export function WorksEditor({ projects, onChange, instagramUrl, editContentUrl }
               }
               type="button"
               aria-pressed={project.id === activeProject.id}
-              onClick={() => setActiveProjectId(project.id)}
+              onClick={() => onSelectProject(project.id)}
             >
               {project.navTitle || project.title || '제목 없는 모음'}
             </button>
@@ -122,7 +133,10 @@ export function WorksEditor({ projects, onChange, instagramUrl, editContentUrl }
               type="button"
               aria-label={`${project.navTitle || project.title} 위로 이동`}
               disabled={index === 0}
-              onClick={() => onChange(moveItem(projects, index, -1))}
+              onClick={() => {
+                onChange(moveItem(projects, index, -1));
+                setCopyStatus('');
+              }}
             >
               ↑
             </button>
@@ -131,7 +145,10 @@ export function WorksEditor({ projects, onChange, instagramUrl, editContentUrl }
               type="button"
               aria-label={`${project.navTitle || project.title} 아래로 이동`}
               disabled={index === projects.length - 1}
-              onClick={() => onChange(moveItem(projects, index, 1))}
+              onClick={() => {
+                onChange(moveItem(projects, index, 1));
+                setCopyStatus('');
+              }}
             >
               ↓
             </button>

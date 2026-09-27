@@ -81,6 +81,31 @@ export function App() {
   }, [selectedIndex]);
 
   const closeMenu = () => setMenuOpen(false);
+  const selectProject = (projectId) => {
+    setRoute({ page: 'works', projectId });
+    setSelectedIndex(null);
+    window.location.hash = 'works/' + projectId;
+  };
+  const addPhotoToCurrentProject = (file) => {
+    const src = '/photos/' + file.name;
+    if (currentProject.frames.some((frame) => frame.src === src)) return false;
+
+    const title = file.name.replace(/\.webp$/i, '');
+    setProjects((currentProjects) =>
+      currentProjects.map((project) =>
+        project.id === currentProject.id
+          ? {
+              ...project,
+              frames: [
+                ...project.frames,
+                { src, alt: title, title, camera: '미기록', film: '미기록' },
+              ],
+            }
+          : project,
+      ),
+    );
+    return true;
+  };
 
   return (
     <div className="portfolio-shell">
@@ -173,7 +198,7 @@ export function App() {
               <p>
                 모음과 사진 정보를 고친 뒤 GitHub에 저장할 수 있어요.
               </p>
-              <PhotoConverter />
+              <PhotoConverter onAddToWorks={addPhotoToCurrentProject} />
             </section>
           )}
         </nav>
@@ -184,6 +209,8 @@ export function App() {
           <WorksEditor
             projects={projects}
             onChange={setProjects}
+            currentProjectId={currentProject.id}
+            onSelectProject={selectProject}
             instagramUrl={instagramUrl}
             editContentUrl={editContentUrl}
           />
